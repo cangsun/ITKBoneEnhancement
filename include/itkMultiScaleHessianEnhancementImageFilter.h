@@ -141,11 +141,18 @@ public:
   using SigmaType = RealType;
   using SigmaArrayType = Array<SigmaType>;
   using SigmaStepsType = unsigned int;
-  typedef enum
+  /**\class SigmaStepMethodEnum
+   * */
+  enum class SigmaStepMethodEnum : u_int8_t
   {
     EquispacedSigmaSteps = 0,
     LogarithmicSigmaSteps = 1
-  } SigmaStepMethodEnum;
+  };
+/**Exposes enums values for backwards compatibility*/
+#if !defined(ITK_LEGACY_REMOVE)
+  static constexpr SigmaStepMethodEnum EquispacedSigmaSteps = SigmaStepMethodEnum::EquispacedSigmaSteps;
+  static constexpr SigmaStepMethodEnum LogarithmicSigmaSteps = SigmaStepMethodEnum::LogarithmicSigmaSteps;
+#endif
 
   /** Set/Get macros for SigmaArray */
   itkSetMacro(SigmaArray, SigmaArrayType);
