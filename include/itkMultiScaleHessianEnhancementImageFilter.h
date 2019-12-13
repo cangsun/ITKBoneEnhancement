@@ -128,7 +128,7 @@ public:
   
   /** Need some types to determine how to order the eigenvalues */
   using InternalEigenValueOrderType = typename EigenAnalysisFilterType::FunctorType::EigenValueOrderType;
-  using ExternalEigenValueOrderType = typename EigenToMeasureImageFilterType::EigenValueOrderType;
+  using ExternalEigenValueOrderType = typename EigenToMeasureImageFilterType::EigenValueOrderEnum;
 
   /** Set/Get the EigenToMeasureImageFilter. */
   itkSetObjectMacro(EigenToMeasureImageFilter, EigenToMeasureImageFilterType);

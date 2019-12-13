@@ -84,7 +84,7 @@ public:
   itkTypeMacro(DescoteauxEigenToMeasureImageFilter, EigenToMeasureImageFilter);
 
   /** Explicitely state the eigenvalues are ordered by magnitude for this filter */
-  typename Superclass::EigenValueOrderType GetEigenValueOrder() const override
+  typename Superclass::EigenValueOrderEnum GetEigenValueOrder() const override
   {
     return Superclass::OrderByMagnitude;
   }
