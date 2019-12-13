@@ -53,7 +53,7 @@ namespace itk {
  * of the absolute value of the eigenvalues NOT the sum of the eigenvalues.
  * Furthermore, all parameters were scaled by a factor of 2 in the implementation
  * and \f$ \gamma \f$ was set to 0.5 of the average sum of absolute value of the
- * eigenvalues. To account for these discrepancies, the flag KrcahImplementationType
+ * eigenvalues. To account for these discrepancies, the flag KrcahImplementationEnum
  * can be set which enables the implementation parameters:
  *    \f{eqnarray*}{
  *      \alpha &=& \sqrt{2} \cdot 0.5 \\
@@ -114,12 +114,22 @@ public:
   /** Runtime information support. */
   itkTypeMacro(KrcahEigenToMeasureParameterEstimationFilter, EigenToMeasureParameterEstimationFilter);
 
- typedef enum {
+  /***\class KrcahImplementationEnum
+   * Krcah implementation type
+   */
+ enum class KrcahImplementationEnum: u_int8_t {
     UseImplementationParameters = 1,
     UseJournalParameters
-  } KrcahImplementationType;
-  itkSetMacro(ParameterSet, KrcahImplementationType);
-  itkGetConstMacro(ParameterSet, KrcahImplementationType);
+  };
+
+ /**Exposes enums values for backwards compatibility*/
+#if !defined(ITK_LEGACY_REMOVE)
+ static constexpr KrcahImplementationEnum UseImplementationParameters = KrcahImplementationEnum::UseImplementationParameters;
+ static constexpr KrcahImplementationEnum UseJournalParameters = KrcahImplementationEnum::UseJournalParameters;
+#endif
+
+  itkSetEnumMacro(ParameterSet, KrcahImplementationEnum);
+  itkGetEnumMacro(ParameterSet, KrcahImplementationEnum);
 
   /* Set parameter set */
   void SetParameterSetToImplementation() {
@@ -158,7 +168,7 @@ protected:
   void PrintSelf(std::ostream & os, Indent indent) const override;
 private:
   /* Member variables */
-  KrcahImplementationType         m_ParameterSet;
+  KrcahImplementationEnum         m_ParameterSet;
   CompensatedSummation<RealType>  m_ThreadCount;
   CompensatedSummation<RealType>  m_ThreadAccumulatedTrace;
 
