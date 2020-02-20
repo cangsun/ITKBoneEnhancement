@@ -289,13 +289,13 @@ MultiScaleHessianEnhancementImageFilter<TInputImage, TOutputImage>::GenerateSigm
   {
     switch (SigmaStepMethod)
     {
-      case Self::EquispacedSigmaSteps:
+      case Self::SigmaStepMethodEnum::EquispacedSigmaSteps:
       {
         const RealType stepSize = std::max(1e-10, (SigmaMaximum - SigmaMinimum) / (NumberOfSigmaSteps - 1));
         thisSigma = SigmaMinimum + stepSize * scaleLevel;
         break;
       }
-      case Self::LogarithmicSigmaSteps:
+      case Self::SigmaStepMethodEnum::LogarithmicSigmaSteps:
       {
         const RealType stepSize =
           std::max(1e-10, (std::log(SigmaMaximum) - std::log(SigmaMinimum)) / (NumberOfSigmaSteps - 1));
@@ -320,7 +320,7 @@ MultiScaleHessianEnhancementImageFilter<TInputImage, TOutputImage>::GenerateEqui
   SigmaType      SigmaMaximum,
   SigmaStepsType NumberOfSigmaSteps)
 {
-  return GenerateSigmaArray(SigmaMinimum, SigmaMaximum, NumberOfSigmaSteps, Self::EquispacedSigmaSteps);
+  return GenerateSigmaArray(SigmaMinimum, SigmaMaximum, NumberOfSigmaSteps, Self::SigmaStepMethodEnum::EquispacedSigmaSteps);
 }
 
 template <typename TInputImage, typename TOutputImage>
@@ -330,7 +330,7 @@ MultiScaleHessianEnhancementImageFilter<TInputImage, TOutputImage>::GenerateLoga
   SigmaType      SigmaMaximum,
   SigmaStepsType NumberOfSigmaSteps)
 {
-  return GenerateSigmaArray(SigmaMinimum, SigmaMaximum, NumberOfSigmaSteps, Self::LogarithmicSigmaSteps);
+  return GenerateSigmaArray(SigmaMinimum, SigmaMaximum, NumberOfSigmaSteps, Self::SigmaStepMethodEnum::LogarithmicSigmaSteps);
 }
 
 template <typename TInputImage, typename TOutputImage>
@@ -339,14 +339,14 @@ MultiScaleHessianEnhancementImageFilter<TInputImage, TOutputImage>::ConvertType(
 {
   switch (order)
   {
-    case EigenToMeasureImageFilterType::OrderByValue:
-      return EigenAnalysisFilterType::FunctorType::EigenValueOrderType::OrderByValue;
-    case EigenToMeasureImageFilterType::OrderByMagnitude:
-      return EigenAnalysisFilterType::FunctorType::EigenValueOrderType::OrderByMagnitude;
-    case EigenToMeasureImageFilterType::DoNotOrder:
-      return EigenAnalysisFilterType::FunctorType::EigenValueOrderType::DoNotOrder;
+    case EigenToMeasureImageFilterType::EigenValueOrderEnum::OrderByValue:
+      return itk::EigenValueOrderEnum::OrderByValue;
+    case EigenToMeasureImageFilterType::EigenValueOrderEnum::OrderByMagnitude:
+      return itk::EigenValueOrderEnum::OrderByMagnitude;
+    case EigenToMeasureImageFilterType::EigenValueOrderEnum::DoNotOrder:
+      return itk::EigenValueOrderEnum::DoNotOrder;
     default:
-      itkExceptionMacro(<< "Trying to convert bad order " << order);
+      itkExceptionMacro(<< "Trying to convert bad order " << static_cast<int>(order));
   }
 }
 
