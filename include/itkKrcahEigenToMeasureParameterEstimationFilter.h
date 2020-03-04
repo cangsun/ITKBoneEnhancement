@@ -116,6 +116,7 @@ public:
   itkTypeMacro(KrcahEigenToMeasureParameterEstimationFilter, EigenToMeasureParameterEstimationFilter);
 
   /***\class KrcahImplementationEnum
+   * \ingroup BoneEnhancement
    * Krcah implementation type
    */
   enum class KrcahImplementationEnum : uint8_t

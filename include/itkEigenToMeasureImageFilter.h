@@ -86,6 +86,7 @@ public:
   itkGetInputMacro(Mask, MaskSpatialObjectType);
 
   /**\class EigenValueOrderEnum
+   * \ingroup BoneEnhancement
    * Template the EigenValueOrderEnum. Methods that inherit from this class can override this function
    * to produce a different eigenvalue ordering. Ideally, the enum EigenValueOrderEnum should come from
    * itkSymmetricEigenAnalysisImageFilter.h or itkSymmetricEigenAnalysis.h. That turns out to be non-trivial
